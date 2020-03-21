@@ -1,3 +1,91 @@
-h1 {
-  color: cornflowerblue;
+@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+main {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main h1 {
+  margin-top: 30vh;
+  font-size: 4rem;
+  font-weight: 100;
+}
+
+main p {
+  color: #666666;
+  font-size: 1.25rem;
+}
+
+.pads {
+  height: 20vh;
+  max-height: 200px;
+  width: 100%;
+  margin-top: auto;
+  display: flex;
+}
+
+.pad {
+  width: 100px;
+  flex: 1;
+}
+.pad1 {
+  background: #df1e85;
+}
+.pad2 {
+  background: #ffe302;
+}
+.pad3 {
+  background: #00adf2;
+}
+.pad4 {
+  background: #8eb734;
+}
+.pad5 {
+  background: #f37201;
+}
+.pad6 {
+  background: #9f00ff;
+}
+
+.ball {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0%;
+  left: 20%;
+  z-index: -1;
+  background: black;
+  animation: bounce 1000ms ease-in-out;
+}
+
+@keyframes bounce {
+  0% {
+    bottom: 0%;
+    left: 20%;
+  }
+  50% {
+    bottom: 50%;
+    left: 50%;
+  }
+  100% {
+    bottom: 0%;
+    left: 80%;
+  }
 }
