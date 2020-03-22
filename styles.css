@@ -43,24 +43,43 @@ main p {
 .pad {
   width: 100px;
   flex: 1;
+  position: relative;
 }
+
+.pad span {
+  position: absolute;
+  font-size: 1.5rem;
+  top: -1.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border: currentColor solid 2px;
+  padding: 0 0.25rem;
+  pointer-events: none;
+}
+
 .pad1 {
   background: #df1e85;
+  color: #df1e85;
 }
 .pad2 {
   background: #ffe302;
+  color: #ffe302;
 }
 .pad3 {
   background: #00adf2;
+  color: #00adf2;
 }
 .pad4 {
   background: #8eb734;
+  color: #8eb734;
 }
 .pad5 {
   background: #f37201;
+  color: #f37201;
 }
 .pad6 {
   background: #9f00ff;
+  color: #9f00ff;
 }
 
 .ball {
@@ -71,8 +90,6 @@ main p {
   bottom: 0%;
   left: 20%;
   z-index: -1;
-  background: black;
-  animation: bounce 1000ms ease-in-out;
 }
 
 @keyframes bounce {
