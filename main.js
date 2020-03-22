@@ -1,23 +1,30 @@
-const sounds = document.querySelectorAll("audio");
 const pads = document.querySelector(".pads");
-const animation = document.querySelector(".ball-animation");
 
-pads.addEventListener(
-  "click",
+const playSoundAndAnimate = target => {
+  const audio = target.children[0];
+  const color = window
+    .getComputedStyle(target)
+    .getPropertyValue("background-color");
+
+  const ball = document.createElement("div");
+  ball.classList = "ball";
+  ball.style.background = color;
+  ball.style.animation = "bounce 1000ms ease-in-out";
+  document.body.appendChild(ball);
+  ball.onanimationend = () => document.body.removeChild(ball);
+
+  audio.currentTime = 0;
+  audio.play();
+};
+
+pads.addEventListener("click", event => playSoundAndAnimate(event.target));
+pads.addEventListener("touch", event => playSoundAndAnimate(event.target));
+
+document.addEventListener(
+  "keypress",
   event => {
-    const audio = event.target.children[0];
-    const targetColor = window
-      .getComputedStyle(event.target)
-      .getPropertyValue("background-color");
-
-    const ball = document.createElement("div");
-    ball.classList = "ball";
-    ball.style.background = targetColor;
-
-    document.body.appendChild(ball);
-
-    audio.currentTime = 0;
-    audio.play();
+    const targetDiv = document.getElementById(event.key.toUpperCase());
+    if (targetDiv) playSoundAndAnimate(targetDiv);
   },
   false
 );
