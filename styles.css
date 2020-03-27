@@ -18,13 +18,30 @@ main {
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
 }
 
 main h1 {
-  margin-top: 30vh;
   font-size: 4rem;
   font-weight: 100;
+}
+
+header {
+  text-align: center;
+  animation: slide-in 500ms ease-in-out forwards;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(25vh);
+  }
 }
 
 main p {
@@ -104,5 +121,14 @@ main p {
   100% {
     bottom: 0%;
     left: 80%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  main h1 {
+    font-size: 3rem;
+  }
+  .pad span {
+    display: none;
   }
 }
