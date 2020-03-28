@@ -127,7 +127,7 @@ main p {
   justify-content: space-around;
   align-items: center;
   width: 256px;
-  opacity: 0.5;
+  opacity: 0.6;
 
   position: absolute;
   left: 50%;
@@ -214,6 +214,7 @@ main p {
   }
   .lines {
     width: 192px;
+    opacity: 0.6;
   }
   @keyframes slide-in2 {
     from {
@@ -222,7 +223,24 @@ main p {
     }
     to {
       transform: translate(-50%, 8vh);
-      opacity: 0.75;
+    }
+  }
+  .ball {
+    width: 2rem;
+    height: 2rem;
+  }
+  @keyframes bounce {
+    0% {
+      bottom: 0%;
+      left: 10%;
+    }
+    50% {
+      bottom: 40vh;
+      left: 45%;
+    }
+    100% {
+      bottom: 0%;
+      left: 90%;
     }
   }
 }
