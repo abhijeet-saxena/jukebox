@@ -199,9 +199,26 @@ main p {
   }
 }
 
-.ripple .line,
-.ripple.lines::before {
+@keyframes ripple2 {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  25%,
+  75% {
+    transform: scaleY(0.9);
+  }
+  50% {
+    transform: scaleY(1.3);
+  }
+}
+
+.ripple .line {
   animation: ripple 700ms ease-in-out forwards;
+}
+
+.ripple.lines::before {
+  animation: ripple2 700ms ease-in-out forwards;
 }
 
 /* Media Queries */
