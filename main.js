@@ -1,20 +1,25 @@
 const pads = document.querySelector(".pads");
-const sounds = [];
+const startButton = document.querySelector(".start");
+const pauseButton = document.querySelector(".pause");
+const stopButton = document.querySelector(".stop");
+const playButton = document.querySelector(".play");
+// const downloadButton = document.querySelector(".download");
 
+let soundsArray = [];
 let startTime = null;
-let lastNote = null;
-
-let stop = false;
+let isRecording = false;
+let isPlaying = false;
 
 const playSoundAndAnimate = target => {
   const audio = target.children[0];
 
-  if (!stop) {
-    if (startTime)
-      sounds.push({ note: lastNote, wait: Date.now() - startTime });
+  if (isRecording) {
+    if (soundsArray.length !== 0)
+      soundsArray[soundsArray.length - 1].wait = Date.now() - startTime;
+    soundsArray.push({ note: target.id, wait: null });
     startTime = Date.now();
-    lastNote = target.id;
   }
+
   audio.currentTime = 0;
   audio.play();
   const color = window
@@ -45,7 +50,6 @@ document.addEventListener(
 );
 
 const lines = document.querySelector(".lines");
-
 const linesArray = Array.from(document.querySelectorAll(".line"));
 
 window.onload = () => {
@@ -70,15 +74,64 @@ const pulse = () => {
   }, 600);
 };
 
+startButton.addEventListener(
+  "click",
+  () => {
+    if (isPlaying || isRecording) return;
+    soundsArray = [];
+    startTime = null;
+    isRecording = true;
+    startButton.classList.add("active");
+    pauseButton.style.display = "block";
+    stopButton.style.display = "block";
+    playButton.style.display = "none";
+  },
+  false
+);
+
+pauseButton.addEventListener(
+  "click",
+  () => {
+    pauseButton.classList.toggle("active");
+    if (!isRecording) startTime = Date.now();
+    isRecording = !isRecording;
+  },
+  false
+);
+
+stopButton.addEventListener(
+  "click",
+  () => {
+    isRecording = false;
+    startButton.classList.remove("active");
+    pauseButton.style.display = "none";
+    stopButton.style.display = "none";
+    if (soundsArray.length) playButton.style.display = "block";
+  },
+  false
+);
+
 const waitAndPlay = (i, lag) => {
-  playSoundAndAnimate(document.getElementById(sounds[i].note));
+  playSoundAndAnimate(document.getElementById(soundsArray[i].note));
+  if (i === soundsArray.length - 1) {
+    playButton.classList.remove("active");
+    startButton.classList.remove("inactive");
+    isPlaying = false;
+  }
   setTimeout(() => {
     i++;
-    if (i < sounds.length) waitAndPlay(i, sounds[i].wait);
+    if (i < soundsArray.length) waitAndPlay(i, soundsArray[i].wait);
   }, lag);
 };
 
-// setTimeout(() => {
-//   stop = true;
-//   waitAndPlay(0, sounds[0].wait);
-// }, 10000);
+playButton.addEventListener(
+  "click",
+  () => {
+    isPlaying = true;
+    playButton.classList.add("active");
+    startButton.classList.add("inactive");
+    waitAndPlay(0, soundsArray[0].wait);
+  },
+  false
+);
+// downloadButton.addEventListener("click", () => stopRecording, false);
